@@ -1,0 +1,54 @@
+{include file = "header.html"}
+
+
+
+
+	<div class="bs-component" style="margin-bottom: 15px;">
+              <div class="btn-group btn-group-justified">
+                <a href="benef.php?do=add" class="btn btn-default">اضافة مستفيد</a>
+              </div>
+            </div>
+
+
+
+{if $smarty.get.do == "add"}
+<div class="col-md-4 col-xs-1"  ></div>
+<div class="col-md-4 col-xs-10" >
+	<div class="form-group">
+			<form action="benef.php" method="POST">
+                  <label class="control-label" for="focusedInput">اسم المستفيد</label>
+                  <input class="form-control" id="focusedInput" type="text" name="name">
+                </div>
+                <div class="form-group">
+                    	<input type="submit" class="btn btn-default" type="button" value="اضف">
+                    	<input type="hidden" name="go" value="benef">
+
+                    </span>
+                  </div>
+                </div>
+                </form>
+</div>
+<div class="col-md-4 col-xs-1"  ></div>
+
+<div class="col-md-4" ></div>
+
+{/if}
+
+
+
+                
+
+               
+                {foreach from=$benefShow item=benef} 
+                <div class="col-md-4 col-xs-1"  ></div>
+                  <a href="loan.php?id={$benef.id}"><button type="button" class="btn btn-success col-md-4 col-xs-10">{$benef.name}</button></a>
+                  <div class="col-md-4 col-xs-1"  ></div>
+                  <br/>
+                  <br/>
+                  {/foreach} 
+
+
+
+
+
+{include file = "footer.html"}

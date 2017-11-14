@@ -1,0 +1,107 @@
+{include file = "header.html"}
+<div id="cashdisplay" style="display: none;">
+
+
+
+
+	<div class="bs-component" style="margin-bottom: 15px;">
+              <div class="btn-group btn-group-justified">
+                <a onclick="CashAdd()" class="btn btn-default">اضافة</a>
+                <a onclick="CashSub()" class="btn btn-default">خصم</a>
+              </div>
+            </div>
+
+
+<div id="CashSub" style="display: none;">
+<div class="col-md-4" ></div>
+<div class="col-md-4" >
+	<div class="form-group">
+			<form action="cash.php" method="POST">
+                  <label class="control-label" for="focusedInput">توضيح</label>
+                  <input class="form-control" id="focusedInput" type="text" name="des">
+                </div>
+                <div class="form-group">
+                  <label class="control-label">خصم من الحساب الكاش</label>
+                  <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input type="text" class="form-control" name="out">
+                    <span class="input-group-btn">
+                    	<input type="submit" class="btn btn-default" type="button" value="خصم">
+                    	<input type="hidden" name="go" value="bank">
+
+                    </span>
+                  </div>
+                </div>
+                </form>
+</div>
+<div class="col-md-4" ></div></div>
+
+<div id="CashAdd" style="display: none;">
+<div class="col-md-4" ></div>
+<div class="col-md-4" >
+	<div class="form-group">
+			<form action="cash.php" method="POST">
+                  <label class="control-label" for="focusedInput">توضيح</label>
+                  <input class="form-control" id="focusedInput" type="text" name="des">
+                </div>
+                <div class="form-group">
+                  <label class="control-label">اضافة دخل الى الكاش </label>
+                  <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input type="text" class="form-control" name="in" >
+                    <span class="input-group-btn">
+                    	<input type="submit" class="btn btn-default" type="button" value="اضف">
+                    	<input type="hidden" name="go" value="bank">
+
+                    </span>
+                  </div>
+                </div>
+                </form>
+</div>
+<div class="col-md-4" ></div>
+</div>
+
+{foreach from=$CashSum item=sum}
+{assign var="sum_all_foreach" value=$sum_all_foreach+$sum.in}
+{assign var="sub_all_foreach" value=$sub_all_foreach+$sum.out}
+{/foreach}
+{assign var="account" value=$sum_all_foreach-$sub_all_foreach}
+
+<p class="bg-success col-md-12  col-xs-12 " style="
+    height: 40px;
+    font-size: 31px;
+    font-weight: 900;
+    font-family: sans-serif;
+    text-align: center;">
+    {$account}</p>
+
+<table class="table table-striped table-hover " style="border:2px #fff solid;">
+                <thead>
+                  <tr>
+                  <tr class="info"  style="border:2px #fff solid;">
+                    <td>اضافة</td>
+                    <td>خصم</td>
+                    <td>توضيح</td>
+                    <td>التاريخ</td>
+                  </tr>
+
+                </thead>
+                <tbody >
+{foreach from=$CashShow item=bank} 
+
+                  {if $bank.in != 0 }<tr class="success" >{/if}
+                  {if $bank.out != 0 }<tr class="danger">{/if}
+                    <td>{$bank.in}</td>
+                    <td>{$bank.out}</td>
+                    <td>{$bank.desc}</td>
+                    <td>{$bank.date}</td>
+                  </tr>
+                  {/foreach}
+
+
+                </tbody>
+              </table>
+
+</div>
+
+{include file = "footer.html"}
